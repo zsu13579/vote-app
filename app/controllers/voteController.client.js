@@ -4,8 +4,10 @@
 
    var homeButton = document.querySelector('.btn-home');
    var signButton = document.querySelector('.btn-sign');
-   var clickNbr = document.querySelector('#click-nbr');
-   var apiUrl = 'http://localhost:3000/api/clicks';
+   var addButton = document.querySelector('.btn-add');
+   var deleteButton = document.querySelector('.btn-delete');
+   var voteList = document.querySelector('#voteList');
+   var apiUrl = 'http://localhost:3000/api/votes';
 
    function ready (fn) {
       if (typeof fn !== 'function') {
@@ -32,25 +34,25 @@
       xmlhttp.send();
    }
 
-   function updateClickCount (data) {
-      var clicksObject = JSON.parse(data);
-      clickNbr.innerHTML = clicksObject.clicks;
+   function updateVotes (data) {
+      var votesObject = JSON.parse(data) //.map(x => x.voteName);
+      voteList.innerHTML = votesObject[0].voteName;
    }
 
-   ready(ajaxRequest('GET', apiUrl, updateClickCount));
+   ready(ajaxRequest('GET', apiUrl, updateVotes));
 
-   addButton.addEventListener('click', function () {
+   addButton.addEventListener('vote', function () {
 
       ajaxRequest('POST', apiUrl, function () {
-         ajaxRequest('GET', apiUrl, updateClickCount);
+         ajaxRequest('GET', apiUrl, updateVotes);
       });
 
    }, false);
 
-   deleteButton.addEventListener('click', function () {
+   deleteButton.addEventListener('vote', function () {
 
       ajaxRequest('DELETE', apiUrl, function () {
-         ajaxRequest('GET', apiUrl, updateClickCount);
+         ajaxRequest('GET', apiUrl, updateVotes);
       });
 
    }, false);

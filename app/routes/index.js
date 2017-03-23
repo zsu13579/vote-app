@@ -1,17 +1,17 @@
 'use strict';
 
-var ClickHandler = require(process.cwd() + '/app/controllers/clickHandler.server.js');
+var VoteHandler = require(process.cwd() + '/app/controllers/voteHandler.server.js');
 
 module.exports = function (app, db) {
-   var clickHandler = new ClickHandler(db);
+   var voteHandler = new VoteHandler(db);
 
    app.route('/')
       .get(function (req, res) {
          res.sendFile(process.cwd() + '/public/index.html');
       });
 
-   app.route('/api/clicks')
-      .get(clickHandler.getClicks)
-      .post(clickHandler.addClick)
-      .delete(clickHandler.resetClicks);
+   app.route('/api/votes')
+      .get(voteHandler.getVotes)
+      .post(voteHandler.addVote)
+      .delete(voteHandler.deleteVote);
 };
