@@ -35,8 +35,8 @@
    }
 
    function updateVotes (data) {
-      var votesObject = JSON.parse(data) //.map(x => x.voteName);
-      voteList.innerHTML = votesObject[0].voteName;
+      var votesObject = JSON.parse(data).map(x => "<li><a href='/vote'>"+x.voteName+"</a></li>").join("");
+      voteList.innerHTML = votesObject
    }
 
    ready(ajaxRequest('GET', apiUrl, updateVotes));

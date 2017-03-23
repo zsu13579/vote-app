@@ -6,8 +6,7 @@ function VoteHandler (db) {
    this.getVotes = function (req, res) {
 
       var voteProjection = { '_id': false };
-      var tmp1={voteName:"test2"};
-      console.log("*AAAABBBBBB*") 
+      // var tmp1={voteName:"test2"};
       // votes.insert(tmp1,{save:true},function(err,result){
       //    console.log(result)
       // })  
@@ -23,8 +22,7 @@ function VoteHandler (db) {
          if (err) {
             throw err;
          }
-         res.send(JSON.stringify(result)); 
-         console.log(JSON.stringify(result))      
+         res.send(JSON.stringify(result));     
       });
    };
 
