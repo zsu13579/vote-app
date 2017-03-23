@@ -2,8 +2,8 @@
 
 (function () {
 
-   var addButton = document.querySelector('.btn-add');
-   var deleteButton = document.querySelector('.btn-delete');
+   var homeButton = document.querySelector('.btn-home');
+   var signButton = document.querySelector('.btn-sign');
    var clickNbr = document.querySelector('#click-nbr');
    var apiUrl = 'http://localhost:3000/api/clicks';
 
