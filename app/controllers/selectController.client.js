@@ -7,8 +7,11 @@
    var addButton = document.querySelector('.btn-add');
    var deleteButton = document.querySelector('.btn-delete');
    var voteList = document.querySelector('#voteList');
-   var apiUrl = 'http://localhost:3000/api/votes';
-
+   var test = document.querySelector('#test');
+   var apiUrl = 'http://localhost:3000/api/selectvotes';
+   
+   var test1= '<%= voteName %>';
+   
    function ready (fn) {
       if (typeof fn !== 'function') {
          return;
@@ -40,7 +43,7 @@
 	  for(var i=0;i<data1.length;i++){
 	  votesObject.push("<li><a href='/vote/"+data1[i].voteName+"'>"+data1[i].voteName+"</a></li>");
 	  }
-      voteList.innerHTML = votesObject.join("");
+      test.innerHTML = votesObject.join("");
    }
 
    ready(ajaxRequest('GET', apiUrl, updateVotes));

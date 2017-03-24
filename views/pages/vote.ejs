@@ -18,9 +18,12 @@
 	  <div class="container">      
 		 <p class="clementine-text">I'd like to vote for....</p>
        <select id="selectvote">
-		<%= voteName %>
+		<% for(var i=0;i<voteName.length;i++) { %>
+		<option><%= voteName %></option>
+		<% }  %>
 	   </select>
-	   <%= voteName %>
+	   <div id="test"></div>
+	  
          <div class="btn-container">
             <button type="submit" class="btn btn-add">Submit</button>
             <button class="btn btn-share">Share on Twitter</button>
@@ -36,8 +39,8 @@
 	  <div class="container">         
          <p class="clementine-text">This "fcc-voting" app is built by @jacklv of freecodecamp</p>		 
       </div>
-
-      <script type="text/javascript" src="/controllers/voteController.client.js"></script>   
+	  
+      <script type="text/javascript" src="/controllers/selectController.client.js"></script>   
    </body>
 
 </html>
