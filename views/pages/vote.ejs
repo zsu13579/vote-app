@@ -18,8 +18,8 @@
 	  <div class="container">      
 		 <p class="clementine-text">I'd like to vote for....</p>
        <select id="selectvote">
-		<% for(var i=0;i<voteName.length;i++) { %>
-		<option><%= voteName %></option>
+		<% for(var i=0;i<JSON.parse(results).length;i++) { %>
+		<option><%= JSON.parse(results)[i].voteName %></option>
 		<% }  %>
 	   </select>
 	   <div id="test"></div>

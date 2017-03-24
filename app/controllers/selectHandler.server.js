@@ -1,8 +1,9 @@
 'use strict';
 
-function SelectHandler (db,voteName) {
+function SelectHandler (db) {
    var votes = db.collection('votes');
-   this.voteName = voteName;
+   this.voteName="";
+   this.setvoteName = function(voteName){ this.voteName = voteName;}
 
    // this.getChoices = function (req, res) {
 

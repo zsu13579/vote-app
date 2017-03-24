@@ -39,6 +39,12 @@ function VoteHandler (db) {
    // };
 
    this.addVote = function (req, res) {
+
+      var tmp1={voteName:"test2"};
+      votes.insert(tmp1,{save:true},function(err,result){
+         console.log(result)
+      })  
+
       votes.findAndModify({}, { '_id': 1 }, { $inc: { 'voteName': 1 }}, function (err, result) {
          if (err) {
             throw err;
