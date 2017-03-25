@@ -38,7 +38,7 @@
       var votesObject=[];
 	  var data1=JSON.parse(data);
 	  for(var i=0;i<data1.length;i++){
-	  votesObject.push("<li><a href='/vote/"+data1[i].voteName+"'>"+data1[i].voteName+"</a></li>");
+	  votesObject.push("<a href='/vote/"+data1[i].voteName+"' class='list-group-item'>"+data1[i].voteName+"</a>");
 	  }
       voteList.innerHTML = votesObject.join("");
    }

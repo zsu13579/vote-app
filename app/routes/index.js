@@ -11,6 +11,11 @@ module.exports = function (app, db) {
          res.render('pages/index');
       });
 
+   app.route('/newpolls')
+      .get(function (req, res) {
+         res.render('pages/newpolls');
+      });   
+
    app.route('/vote/:voteName')
       .get(function (req, res) {
 		 var voteName=req.params.voteName;
