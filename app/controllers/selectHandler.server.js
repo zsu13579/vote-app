@@ -2,8 +2,8 @@
 
 function SelectHandler (db) {
    var votes = db.collection('votes');
-   this.voteName="";
-   this.setvoteName = function(voteName){ this.voteName = voteName;}
+   // this.voteName="";
+   // this.setvoteName = function(voteName){ this.voteName = voteName;}
 
    // this.getChoices = function (req, res) {
 
@@ -31,14 +31,16 @@ function SelectHandler (db) {
     this.getSelectChoices = function (req, res) {
 
      var selectProjection = { '_id': false };
-	 console.log(voteName)
+	  var voteName=req.params.voteName;
      votes.find({"voteName":voteName}, selectProjection).toArray(function (err, result){
       if (err) {
             throw err;
          }
-	  // res.render('pages/vote',{"voteName":voteName});		
+      // console.log(result);
       res.send(JSON.stringify(result));     
+      // res.send(JSON.stringify([{"result":1}]))
       });
+   
    };
 
    this.addVote = function (req, res) {

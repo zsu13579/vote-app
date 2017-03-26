@@ -24,6 +24,8 @@
   "author": "Blake Johnston",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "echarts": "^3.4.0",
     "ejs": "^2.5.6",
     "express": "^4.13.3",
     "mongodb": "^2.0.42"

@@ -40,18 +40,27 @@ function VoteHandler (db) {
 
    this.addVote = function (req, res) {
 
-      var tmp1={voteName:"test2"};
-      votes.insert(tmp1,{save:true},function(err,result){
-         console.log(result)
+      var user="jacklv";
+      var options=[];
+      var title=req.body.title;
+      req.body.options.split("\r\n").forEach(function(value){
+         var t={};
+         t[value]=0;
+         options.push(t);
+      })
+
+      var newvote={user:user,voteName:title,options:options};
+      votes.insert(newvote,{save:true},function(err,result){
+         res.render("pages/index")
       })  
 
-      votes.findAndModify({}, { '_id': 1 }, { $inc: { 'voteName': 1 }}, function (err, result) {
-         if (err) {
-            throw err;
-         }
+      // votes.findAndModify({}, { '_id': 1 }, { $inc: { 'voteName': 1 }}, function (err, result) {
+      //    if (err) {
+      //       throw err;
+      //    }
 
-         res.send(result);
-      });
+      //    res.send(result);
+      // });
    };
 
    this.deleteVote = function (req, res) {

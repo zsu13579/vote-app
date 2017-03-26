@@ -3,10 +3,8 @@
 var express = require('express');
 var mongo = require('mongodb');
 var routes = require('./app/routes/index.js');
-
 var app = express();
-
-
+var bodyParser = require('body-parser');
 
 mongo.connect('mongodb://localhost:27017/voteapp', function (err, db) {
 
@@ -22,9 +20,7 @@ mongo.connect('mongodb://localhost:27017/voteapp', function (err, db) {
 
    app.use('/public', express.static(process.cwd() + '/public'));
    app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-   // app.use('/views', express.static(process.cwd() + '/views'));
-   // app.engine('ejs', require('ejs').renderFile);
-
+   app.use(bodyParser.urlencoded({ extended: false }));
 
    routes(app, db);
 

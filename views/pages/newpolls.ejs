@@ -40,20 +40,20 @@
       </nav>
 
       <div class="jumbotron"> 		    
-        <form role="form" class="form-horizontal">
+        <form role="form" class="form-horizontal" action="/api/votes" method="post">
           <div class="form-group">
             <h1>Make a new poll!</h1>
           </div>  
           <div class="form-group">
             <label for="title">Title:</label>
             <div>
-              <input type="text" class="form-control" id="lastname" placeholder="Poll title">
+              <input type="text" class="form-control" id="lastname" name="title">
             </div>
           </div>
           <div class="form-group">  
             <label for="option">Options (seperated by line):</label>
-            <textarea class="form-control" rows="4"></textarea>
-          </div>
+            <textarea class="form-control" rows="4" name="options"></textarea>
+          </div> 
           <div class="form-group">
             <div>
               <button type="submit" class="btn btn-primary">Make!</button>

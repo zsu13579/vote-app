@@ -37,7 +37,6 @@ img {
 }
 
 .btn {	/* Styling for buttons */
-	margin: 0 8px;
 	color: white;
 	background-color: #00BCD4;
 	display: inline-block;
@@ -45,8 +44,12 @@ img {
 	font-size: 14px;
 	border-radius: 3px;
 	padding: 10px 5px;
-	width: 100px;
+	width: 300px;
 	font-weight: 500;
+}
+
+.select {	/* Styling for select */
+ 	width: 300px;
 }
 
 .btn:focus {	/* Remove outline when hovering over button */

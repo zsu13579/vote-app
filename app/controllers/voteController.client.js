@@ -7,6 +7,7 @@
    var addButton = document.querySelector('.btn-add');
    var deleteButton = document.querySelector('.btn-delete');
    var voteList = document.querySelector('#voteList');
+   var voteLink = document.querySelector('.voteLink');
    var apiUrl = 'http://localhost:3000/api/votes';
 
    function ready (fn) {
@@ -35,20 +36,28 @@
    }
 
    function updateVotes (data) {
-      var votesObject=[];
+     var votesObject=[];
 	  var data1=JSON.parse(data);
 	  for(var i=0;i<data1.length;i++){
-	  votesObject.push("<a href='/vote/"+data1[i].voteName+"' class='list-group-item'>"+data1[i].voteName+"</a>");
+	   votesObject.push("<a href='/vote/"+data1[i].voteName+"' class='list-group-item voteLink'>"+data1[i].voteName+"</a>");
 	  }
-      voteList.innerHTML = votesObject.join("");
+     voteList.innerHTML = votesObject.join("");
    }
 
    ready(ajaxRequest('GET', apiUrl, updateVotes));
 
+   // voteLink.addEventListener('vote', function () {
+
+   //    ajaxRequest('POST', apiUrl, function () {
+   //       // ajaxRequest('GET', apiUrl, updateVotes);
+   //    });
+
+   // }, false);
+
    addButton.addEventListener('vote', function () {
 
       ajaxRequest('POST', apiUrl, function () {
-         ajaxRequest('GET', apiUrl, updateVotes);
+         // ajaxRequest('GET', apiUrl, updateVotes);
       });
 
    }, false);

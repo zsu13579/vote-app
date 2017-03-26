@@ -5,6 +5,7 @@ var SelectHandler = require(process.cwd() + '/app/controllers/selectHandler.serv
 
 module.exports = function (app, db) {
    var voteHandler = new VoteHandler(db);
+   var selectHandler = new SelectHandler(db);
 
    app.route('/')
       .get(function (req, res) {
@@ -31,8 +32,13 @@ module.exports = function (app, db) {
          votes.find({"voteName":voteName}, selectProjection).toArray(function (err, result){
             if (err) {
                   throw err;
-            }    
-            res.render('pages/vote',{"voteName":voteName,"results":JSON.stringify(result)});    
+            }
+            var options=[];
+            result[0].options.forEach(function(value){
+                options.push(Object.keys(value));
+            });
+            
+            res.render('pages/vote',{"voteName":voteName,"options":JSON.stringify(options)});    
             });         
       });   
 
@@ -41,5 +47,8 @@ module.exports = function (app, db) {
       .post(voteHandler.addVote)
       .delete(voteHandler.deleteVote);
 
-  
+   app.route('/api/selectvotes/:voteName')
+           .get(selectHandler.getSelectChoices)
+           .post(voteHandler.addVote)
+           .delete(voteHandler.deleteVote);  
 };
