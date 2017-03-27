@@ -49,6 +49,10 @@ module.exports = function (app, db) {
 
    app.route('/api/selectvotes/:voteName')
            .get(selectHandler.getSelectChoices)
-           .post(voteHandler.addVote)
-           .delete(voteHandler.deleteVote);  
+           .post(selectHandler.addVote);
+           // .delete(selectHandler.deleteVote); 
+	
+	app.route('/api/selectvotes/')
+           .post(selectHandler.addVote);
+           // .delete(selectHandler.deleteVote);  	
 };

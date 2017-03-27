@@ -41,20 +41,21 @@
       </nav>
 	   
       <div class="jumbotron">
-         <div id="test"></div>
        <div class="row">
         <div class="col-sm-5">           
-        <form role="form" class="form-horizontal" action="/api/votes" method="post">
+        <form role="form" class="form-horizontal" action="/api/selectvotes/" method="post">
           <div class="form-group text-left">
-            <label><h3><%=voteName %></h3></label>
+			<div>
+              <h3 name="title"><%=voteName %></h3>
+			</div>
           </div>  
           <div class="form-group">
             <label for="title">I'd like to vote for...:</label>
             <div>
-              <select id="selectvote"  class="form-control select">
+              <select id="selectvote" name="selectoption" class="form-control select">
                <option disabled selected hidden>choose an option...</option>
                <% for(var i=0;i<JSON.parse(options).length;i++) { %>
-               <option><%= JSON.parse(options)[i] %></option>
+               <option value=<%= JSON.parse(options)[i] %> ><%= JSON.parse(options)[i] %></option>
                <% }  %>
               </select>
             </div>
@@ -67,6 +68,11 @@
           <div class="form-group">
             <div>
               <button class="btn btn-primary btn-share">Share on Twitter</button>
+            </div>
+          </div>
+		  <div class="form-group">
+            <div>
+              <input type="hidden" name="title" value=<%=voteName %>>
             </div>
           </div>
         </form>
