@@ -45,9 +45,9 @@
         <div class="col-sm-5">           
         <form role="form" class="form-horizontal" action="/api/selectvotes/" method="post">
           <div class="form-group text-left">
-			<div>
+			     <div>
               <h3 name="title"><%=voteName %></h3>
-			</div>
+			     </div>
           </div>  
           <div class="form-group">
             <label for="title">I'd like to vote for...:</label>
@@ -70,13 +70,27 @@
               <button class="btn btn-primary btn-share">Share on Twitter</button>
             </div>
           </div>
-		  <div class="form-group">
+          
+		      <div class="form-group">
             <div>
               <input type="hidden" name="title" value=<%=voteName %>>
             </div>
           </div>
         </form>
+        <form role="form" class="form-horizontal" action="/api/deletevotes/" method="post">
+          <div class="form-group">
+           <div>
+              <input type="hidden" name="title" value=<%=voteName %>>
+           </div>
+          </div>
+          <div class="form-group">
+            <div>
+              <button type="submit" class="btn btn-danger btn-delete">Delete</button>
+            </div>
+          </div>  
+        </form> 
         </div> <!-- form -->
+ 
         <div class="col-sm-5">
          <div id="piechar" style="width: 600px;height:400px;"></div>
         </div> <!-- chart -->

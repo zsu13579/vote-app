@@ -1,18 +1,12 @@
 'use strict';
 
 (function () {
-   // var tmp=$("h3").val();
-   // $("#piechar").html(tmp);
 
    var voteName=$("h3").text();
    var piechar=document.getElementById('piechar');
-   // var homeButton = document.querySelector('.btn-home');
-   // var signButton = document.querySelector('.btn-sign');
-   // var addButton = document.querySelector('.btn-add');
-   // var deleteButton = document.querySelector('.btn-delete');
-   // var voteList = document.querySelector('#voteList');
-   // var test = document.querySelector('#test');
+   var deleteButton = document.querySelector('.btn-delete');
    var apiUrl = 'http://localhost:3000/api/selectvotes/'+voteName;
+   var apiUrlDel = 'http://localhost:3000/api/deletevotes/';
    
    function ready (fn) {
       if (typeof fn !== 'function') {
@@ -49,7 +43,7 @@
          // val.push(value[Object.keys(value)]);
          options.push({name:Object.keys(val)[0],value:val[Object.keys(val)]})
        });
-       // // $("#piechar").html(voteName);
+
        var myChart = echarts.init(piechar);
        
        var option={
@@ -90,19 +84,19 @@
 
    ready(ajaxRequest('GET', apiUrl, updateVotes));
 
-   addButton.addEventListener('vote', function () {
+   // addButton.addEventListener('vote', function () {
 
-      ajaxRequest('POST', apiUrl, function () {
-         ajaxRequest('GET', apiUrl, updateVotes);
-      });
+   //    ajaxRequest('POST', apiUrl, function () {
+   //       // ajaxRequest('GET', apiUrl, updateVotes);
+   //    });
 
-   }, false);
+   // }, false);
 
    // deleteButton.addEventListener('vote', function () {
 
-      // ajaxRequest('DELETE', apiUrl, function () {
-         // ajaxRequest('GET', apiUrl, updateVotes);
-      // });
+   //    ajaxRequest('DELETE', apiUrlDel, function () {
+   //       // ajaxRequest('GET', apiUrl, updateVotes);
+   //    });
 
    // }, false);
 

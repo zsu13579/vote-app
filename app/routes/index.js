@@ -19,14 +19,7 @@ module.exports = function (app, db) {
 
    app.route('/vote/:voteName')
       .get(function (req, res) {
-		 var voteName=req.params.voteName;
-		 // console.log(voteName)
-		 // var selectHandler = new SelectHandler(db);
-		 // selectHandler.setvoteName(voteName);
-		 //  app.route('/api/selectvotes/')
-			//   .get(selectHandler.getSelectChoices)
-			//   .post(voteHandler.addVote)
-			//   .delete(voteHandler.deleteVote);   
+		 var voteName=req.params.voteName;  
          var votes = db.collection('votes');
          var selectProjection = { '_id': false };
          votes.find({"voteName":voteName}, selectProjection).toArray(function (err, result){
@@ -44,15 +37,14 @@ module.exports = function (app, db) {
 
    app.route('/api/votes')
       .get(voteHandler.getVotes)
-      .post(voteHandler.addVote)
-      .delete(voteHandler.deleteVote);
+      .post(voteHandler.addVote);
 
    app.route('/api/selectvotes/:voteName')
            .get(selectHandler.getSelectChoices)
-           .post(selectHandler.addVote);
-           // .delete(selectHandler.deleteVote); 
 	
-	app.route('/api/selectvotes/')
+	 app.route('/api/selectvotes/')
            .post(selectHandler.addVote);
-           // .delete(selectHandler.deleteVote);  	
+
+   app.route('/api/deletevotes/')
+           .post(selectHandler.deleteVote);	
 };

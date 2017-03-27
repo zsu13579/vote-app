@@ -1,5 +1,6 @@
 'use strict';
 
+// handle selectoption event
 function SelectHandler (db) {
    var votes = db.collection('votes');
    
@@ -11,41 +12,51 @@ function SelectHandler (db) {
       if (err) {
             throw err;
          }
-      // console.log(result);
+      // result: { "user" : "jacklv", "voteName" : "Sex", "options" : [ { "boy" : 0 }, { "girl" : 0 }, { "other" : 0 } ] }   
       res.send(JSON.stringify(result));     
-      // res.send(JSON.stringify([{"result":1}]))
-      });
-   
+      });  
    };
 
    this.addVote = function (req, res) {
-	  var user="jacklv";
-      var options=[];
+	   var user="jacklv";
+      var newoptions=[];
+      // title is same as voteName in this page
       var title=req.body.title;
       var selectoption=req.body.selectoption;
-	  // console.log(title+","+selectoption)
-      var newvote={user:user,voteName:title,options:options};
-      // votes.insert(newvote,{save:true},function(err,result){
-         // res.render("pages/index")
-      // })  
- 
-      // votes.findAndModify({"user":user,"voteName":voteName}, { '_id': 1 }, { $inc: { 'voteName': 1 }}, function (err, result) {
-         // if (err) {
-            // throw err;
-         // }		 
-         // res.send(result);
-      // });
-	   res.end()
+      var selectProjection = { '_id': false };
+      votes.find({user:user,voteName:title}, selectProjection).toArray(function (err, result){
+         if (err) {
+               throw err;
+            }
+         // result: { "user" : "jacklv", "voteName" : "Sex", "options" : [ { "boy" : 0 }, { "girl" : 0 }, { "other" : 0 } ] }
+         var options=result[0].options;
+         options.forEach(function(value){
+            var key=Object.keys(value)[0];
+            if(key==selectoption){
+               var tmp={};
+               tmp[selectoption]=parseInt(value[key])+1;
+               newoptions.push(tmp)
+            }else{newoptions.push(value)}
+         });
+         var wherestr={user:user,voteName:title}; 
+         var updatestr={$set:{options:newoptions}}
+         votes.update(wherestr,updatestr,function(err,result){
+            res.redirect("/vote/"+title)
+         })  
+      });
+      
    };
 
-   // this.deleteVote = function (req, res) {
-      // votes.update({}, { 'clicks': 0 }, function (err, result) {
-         // if (err) {
-            // throw err;
-         // }
-         // res.send(result);
-      // });
-   // };
+   this.deleteVote = function (req, res) {
+      var user="jacklv";
+      var voteName=req.body.title;
+      votes.remove({"voteName":voteName}, function (err, result) {
+         if (err) {
+            throw err;
+         }
+         res.redirect("/pages/index");
+      });  
+   };
 }
 
 module.exports = SelectHandler;
