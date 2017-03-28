@@ -8,6 +8,7 @@
    var deleteButton = document.querySelector('.btn-delete');
    var voteList = document.querySelector('#voteList');
    var voteLink = document.querySelector('.voteLink');
+   var git = document.querySelector('#git');   
    var apiUrl = 'http://localhost:3000/api/votes';
 
    function ready (fn) {
@@ -53,6 +54,14 @@
    //    });
 
    // }, false);
+   
+    // git.addEventListener('vote', function () {
+
+       // ajaxRequest('POST', apiUrl, function () {
+          // // ajaxRequest('GET', apiUrl, updateVotes);
+       // });
+
+    // }, false);
 
    addButton.addEventListener('vote', function () {
 
