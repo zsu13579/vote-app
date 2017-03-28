@@ -33,17 +33,27 @@ module.exports = function (app, db) {
 			headers:headers,
 			method:'POST'
 		};
-		var req1 = https.request(opts, function(res){
-			res.setEncoding('utf8');
-			res.on('data', function(data){
-				var args = data.split('&');
-				var tokenInfo = args[0].split("=");
-				var token = tokenInfo[1];
-			res1.send(token)		
-			})
+		// var req1 = https.request(opts, function(res){
+		// 	res.setEncoding('utf8');
+		// 	res.on('data', function(data){
+		// 		var args = data.split('&');
+		// 		var tokenInfo = args[0].split("=");
+		// 		var token = tokenInfo[1];
+  //       // res1.send(token)
+        
+		// 	})
 			
+  //       });
+		// req1.end();
+    headers.host = 'api.github.com';
+    var path2= "/user?access_token="+"367519db02107a19bea255b63ae0878ce9705049"
+        var req2 = https.request({host:'api.github.com',port:'443',path:path2,headers:headers,method:'GET',},function(res2){
+          res2.setEncoding('utf8');
+          res2.on('data',function(data){
+            res1.send(JSON.stringify(data))
+          })
         });
-		req1.end()
+        req2.end(); 
 		 
       });	  
 
