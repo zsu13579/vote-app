@@ -10,8 +10,26 @@ module.exports = function (app, db) {
 
    app.route('/')
       .get(function (req, res) {
-         res.render('pages/index');
+         if(!req.session.user){
+            res.render('pages/index',{user:req.session.user})
+         }else{
+         res.render('pages/home');}
       });
+
+   app.route('/home')
+      .get(function (req, res) {
+         if(!req.session.user){
+            res.render('pages/index',{user:req.session.user})
+         }else{
+         res.render('pages/home');}
+      });
+
+    app.route('/logout')
+      .get(function (req, res) {
+         req.session.user=null;            
+         res.redirect('/');
+      });  
+
 	  
    app.route('/auth/github/callback')
       .get(function (req, res1) {
@@ -19,6 +37,7 @@ module.exports = function (app, db) {
 		 var code = req.query.code;
 		 // var state = req.param('state');
 		var headers = req.headers;
+    var users=db.collection('users');
 		var path = "/login/oauth/access_token";
 		headers.host = 'github.com';
 
@@ -33,34 +52,66 @@ module.exports = function (app, db) {
 			headers:headers,
 			method:'POST'
 		};
-		// var req1 = https.request(opts, function(res){
-		// 	res.setEncoding('utf8');
-		// 	res.on('data', function(data){
-		// 		var args = data.split('&');
-		// 		var tokenInfo = args[0].split("=");
-		// 		var token = tokenInfo[1];
-  //       // res1.send(token)
+		var req1 = https.request(opts, function(res){
+			res.setEncoding('utf8');
+			res.on('data', function(data){
+				var args = data.split('&');
+				var tokenInfo = args[0].split("=");
+				var token = tokenInfo[1];
         
-		// 	})
-			
-  //       });
-		// req1.end();
-    headers.host = 'api.github.com';
-    var path2= "/user?access_token="+"367519db02107a19bea255b63ae0878ce9705049"
-        var req2 = https.request({host:'api.github.com',port:'443',path:path2,headers:headers,method:'GET',},function(res2){
+        var path2= "/user?access_token="+token;
+        var req2 = https.request({host:'api.github.com',port:'443',path:path2,headers:{'User-Agent':'vote-app'},method:'GET',},function(res2){
           res2.setEncoding('utf8');
+          var json='';
           res2.on('data',function(data){
-            res1.send(JSON.stringify(data))
+            json+=data;          
           })
+
+          res2.on('end',function(){
+            console.log(json)
+            json=JSON.parse(json)
+            var id=json.id;
+            var user=json.login;
+            users.find({'id':id}).toArray(function(err,result){
+              if (err) {
+                throw err;
+                } ;
+                
+              if(result.length==0){
+                console.log(result)
+                users.insert({id:id,user:user},{save:true},function(err,result){
+                  if (err) {
+                  throw err;
+                  } ;
+                  console.log(result)
+                })
+              }
+              req.session.user=user;
+              res1.render('pages/home',{user:user})
+            })
+            
+          })
+
         });
         req2.end(); 
+        
+			})
+			
+        });
+		    req1.end();
+    
 		 
       });	  
 
    app.route('/newpolls')
       .get(function (req, res) {
          res.render('pages/newpolls');
-      });   
+      }); 
+
+   app.route('/mypolls')
+      .get(function (req, res) {
+         res.render('pages/mypolls');
+      });        
 
    app.route('/vote/:voteName')
       .get(function (req, res) {
@@ -83,6 +134,9 @@ module.exports = function (app, db) {
     app.route('/api/votes')
       .get(voteHandler.getVotes)
       .post(voteHandler.addVote);
+
+    app.route('/api/myvotes')
+      .get(voteHandler.getMyVotes)
 
     app.route('/api/selectvotes/:voteName')
            .get(selectHandler.getSelectChoices)

@@ -18,7 +18,7 @@ function SelectHandler (db) {
    };
 
    this.addVote = function (req, res) {
-	   var user="jacklv";
+	   var user=req.session.user;
       var newoptions=[];
       // title is same as voteName in this page
       var title=req.body.title;
@@ -48,7 +48,7 @@ function SelectHandler (db) {
    };
 
    this.deleteVote = function (req, res) {
-      var user="jacklv";
+      var user=req.session.user;
       var voteName=req.body.title;
       votes.remove({"voteName":voteName}, function (err, result) {
          if (err) {

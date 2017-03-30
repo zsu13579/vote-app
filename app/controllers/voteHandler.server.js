@@ -25,6 +25,19 @@ function VoteHandler (db) {
          res.send(JSON.stringify(result));     
       });
    };
+
+   this.getMyVotes = function (req, res) {
+
+      var voteProjection = { '_id': false };
+      var user=req.session.user;
+      votes.find({user:user}, voteProjection).toArray(function (err, result){
+         if (err) {
+            throw err;
+         }      
+         res.send(JSON.stringify(result));     
+      });
+   };
+   
    
    // this.getSelectChoices = function (req, res) {
 
@@ -40,7 +53,7 @@ function VoteHandler (db) {
 
    this.addVote = function (req, res) {
 
-      var user="jacklv";
+      var user=req.session.user;
       var options=[];
       var title=req.body.title;
       req.body.options.split("\r\n").forEach(function(value){
@@ -51,7 +64,7 @@ function VoteHandler (db) {
 
       var newvote={user:user,voteName:title,options:options};
       votes.insert(newvote,{save:true},function(err,result){
-         res.render("pages/index")
+         res.redirect("/home")
       })  
 
       // votes.findAndModify({}, { '_id': 1 }, { $inc: { 'voteName': 1 }}, function (err, result) {
