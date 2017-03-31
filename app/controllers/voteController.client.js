@@ -9,7 +9,7 @@
    var voteList = document.querySelector('#voteList');
    var voteLink = document.querySelector('.voteLink');
    var git = document.querySelector('#git');   
-   var apiUrl = 'http://localhost:3000/api/votes';
+   var apiUrl = 'https://agile-dawn-14624.herokuapp.com/api/votes';
 
    function ready (fn) {
       if (typeof fn !== 'function') {

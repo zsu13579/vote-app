@@ -3,7 +3,7 @@
 (function () {
 
    var voteList = document.querySelector('#voteList'); 
-   var apiUrl = 'http://localhost:3000/api/myvotes';
+   var apiUrl = 'https://agile-dawn-14624.herokuapp.com/api/myvotes';
 
    function ready (fn) {
       if (typeof fn !== 'function') {

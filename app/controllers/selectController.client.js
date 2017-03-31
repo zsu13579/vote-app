@@ -6,7 +6,7 @@
    var piechar=document.getElementById('piechar');
    var deleteButton = document.querySelector('.btn-delete');
    var apiUrl = 'http://localhost:3000/api/selectvotes/'+voteName;
-   var apiUrlDel = 'http://localhost:3000/api/deletevotes/';
+   var apiUrlDel = 'https://agile-dawn-14624.herokuapp.com/api/deletevotes/';
    
    function ready (fn) {
       if (typeof fn !== 'function') {
