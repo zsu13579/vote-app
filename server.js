@@ -13,9 +13,10 @@ mongo.connect('mongodb://lvzq:123456@ds137110.mlab.com:37110/lvlab', function (e
    if (err) {
       throw new Error('Database failed to connect!');
    } else {
-      console.log('Successfully connected to MongoDB on port 27017.');
+      console.log('Successfully connected to MongoDB on port 37110.');
    }
    
+  app.set('port',(process.env.PORT || 3000));  
    // views is directory for all template files
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
@@ -43,7 +44,7 @@ mongo.connect('mongodb://lvzq:123456@ds137110.mlab.com:37110/lvlab', function (e
 
    routes(app, db);
 
-   app.listen(3000, function () {
+   app.listen(app.get('port'), function () {
       console.log('Node.js listening on port 3000...');
    });
 
