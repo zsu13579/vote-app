@@ -8,7 +8,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var https = require('https');
 
-mongo.connect('mongodb://localhost:27017/voteapp', function (err, db) {
+mongo.connect('mongodb://lvzq:123456@ds137110.mlab.com:37110/lvlab', function (err, db) {
 
    if (err) {
       throw new Error('Database failed to connect!');
