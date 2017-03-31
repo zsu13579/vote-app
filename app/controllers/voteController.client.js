@@ -37,10 +37,11 @@
    }
 
    function updateVotes (data) {
+	 // var user=req.session.user;
      var votesObject=[];
 	  var data1=JSON.parse(data);
 	  for(var i=0;i<data1.length;i++){
-	   votesObject.push("<a href='/vote/"+data1[i].voteName+"' class='list-group-item voteLink'>"+data1[i].voteName+"</a>");
+	   votesObject.push("<a href='/vote?voteName="+data1[i].voteName+"&user="+data1[i].user+"' class='list-group-item voteLink'>"+data1[i].voteName+"</a>");
 	  }
      voteList.innerHTML = votesObject.join("");
    }

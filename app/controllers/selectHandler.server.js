@@ -18,13 +18,14 @@ function SelectHandler (db) {
    };
 
    this.addVote = function (req, res) {
-	   var user="jacklv";
+	   // var user=req.session.user;
+	   // console.log(user);
       var newoptions=[];
       // title is same as voteName in this page
       var title=req.body.title;
       var selectoption=req.body.selectoption;
       var selectProjection = { '_id': false };
-      votes.find({user:user,voteName:title}, selectProjection).toArray(function (err, result){
+      votes.find({voteName:title}, selectProjection).toArray(function (err, result){
          if (err) {
                throw err;
             }
@@ -38,17 +39,17 @@ function SelectHandler (db) {
                newoptions.push(tmp)
             }else{newoptions.push(value)}
          });
-         var wherestr={user:user,voteName:title}; 
+         var wherestr={voteName:title}; 
          var updatestr={$set:{options:newoptions}}
          votes.update(wherestr,updatestr,function(err,result){
-            res.redirect("/vote/"+title)
+            res.redirect("/vote?voteName="+title)
          })  
       });
       
    };
 
    this.deleteVote = function (req, res) {
-      var user="jacklv";
+      var user=req.session.user;
       var voteName=req.body.title;
       votes.remove({"voteName":voteName}, function (err, result) {
          if (err) {
